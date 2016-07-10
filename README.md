@@ -8,7 +8,7 @@ Add the following to your composer.json and run `composer update`
 ```json
 {
     "require": {
-        "gazatem/dblogger": "dev-master"
+        "gazatem/glog": "dev-master"
     }
 }
 ```
@@ -22,14 +22,14 @@ composer dump-autoload
 Open your config/app.php add following line in the providers array
 
 ```php
-Gazatem\DBLogger\DBLoggerServiceProvider::class
+Gazatem\Glog\GlogServiceProvider::class
 ```
 
 Then in your bootstrap/app.php add / update your Monolog configiuration.
 
 ```php
 $app->configureMonologUsing(function ($monolog) {
-    $monolog->pushHandler(new \Gazatem\DBLogger\DBLogger());
+    $monolog->pushHandler(new \Gazatem\Glog\Glog());
 });
 ```
 
@@ -49,7 +49,7 @@ Run following command to publish migration and configuration
 
 
 
-Open config/dblogger.php file and update the settings.
+Open config/glog.php file and update the settings.
 
 #USAGE
 
@@ -61,7 +61,7 @@ use Log;
 
 And add log entry
 ```php
-Log('user.register', ['id' => 23, 'name' => 'John Doe', 'email' => 'john@example.com']);
+Log('user.register', ['message' => 'User Registration Controller', 'id' => 23, 'name' => 'John Doe', 'email' => 'john@example.com']);
 ```
 
 
