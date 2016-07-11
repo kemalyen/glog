@@ -61,7 +61,7 @@ use Log;
 
 And add log entry
 ```php
-Log('user.register', ['message' => 'User Registration Controller', 'id' => 23, 'name' => 'John Doe', 'email' => 'john@example.com']);
+Log::info('user.register', ['message' => 'User Registration Controller', 'id' => 23, 'name' => 'John Doe', 'email' => 'john@example.com']);
 ```
 
 
