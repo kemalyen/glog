@@ -29,7 +29,7 @@ class Glog extends AbstractProcessingHandler
             $messages = config('glog.messages');
 
             $data = ['record' => $record, 'action' => (isset($messages[$record['message']]) ? $messages[$record['message']] : $record['message'])];
-            Mail::send("glog::notification", $data, function ($message) {
+            Mail::send("glog::email.notification", $data, function ($message) {
                 $message->to(config('glog.mail_to'))->subject(config('glog.mail_subject'));
             });
         }
