@@ -98,10 +98,10 @@ class Glog extends AbstractProcessingHandler
             throw new \LogicException('The curl extension is needed to use http URLs');
         }
 
-        $this->httpConnection = curl_init(config('glog.remote_host', 'http://ap.gazatem.com'));
+        $this->httpConnection = curl_init(config('glog.remote_host', 'http://test.gazatem.com'));
 
         if (!$this->httpConnection) {
-            throw new \LogicException('Unable to connect to ' . config('glog.remote_host', 'http://ap.gazatem.com'));
+            throw new \LogicException('Unable to connect to ' . config('glog.remote_host', 'http://test.gazatem.com'));
         }
 
         curl_setopt($this->httpConnection, CURLOPT_POST, "POST");
