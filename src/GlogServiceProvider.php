@@ -23,6 +23,7 @@ class GlogServiceProvider extends ServiceProvider
             __DIR__.'/public' => public_path('vendor/gazatem/glog'),
         ], 'public');
 
+
         $this->setupRoutes($this->app->router);
         $this->loadViewsFrom(__DIR__ . '/views', 'glog');
         $this->bladeDirectives();
