@@ -1,13 +1,15 @@
 <?php
-namespace Gazatem\Glog\Model;
+namespace Gazatem\Glog\Model\MongoDb;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Model;
 use Carbon\Carbon;
 
 class Log extends Model
 {
-    protected $softDelete = true;
+    protected $connection = 'mongodb';
+    protected $collection = 'logs';
 
+    protected $softDelete = true;
     protected $guarded = array('id');  // Important
 
     public function getDateDiff()

@@ -4,7 +4,6 @@ namespace Gazatem\Glog;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
 
-
 class GlogServiceProvider extends ServiceProvider
 {
     /**

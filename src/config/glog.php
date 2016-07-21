@@ -5,6 +5,8 @@ return [
 
     'service' => 'local',
 
+    'db_connection' => 'mongodb',
+
     'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
 
     'channels' => ['log', 'user.register', 'user.login', 'user.activation', 'action.failed'],

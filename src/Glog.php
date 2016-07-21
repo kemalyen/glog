@@ -2,7 +2,8 @@
 
 namespace Gazatem\Glog;
 
-use Gazatem\Glog\Model\Log as Logger;
+use Gazatem\Glog\Model\MongoDb\Log as MongoDbLogger;
+use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;
 use Illuminate\Support\Facades\Mail;
@@ -38,13 +39,23 @@ class Glog extends AbstractProcessingHandler
             if (config('glog.service', 'local') === 'remote') {
                 $this->post_remote($record);
             } else {
-                Logger::create(
-                    [
-                        'channel' => $record['message'],
-                        'context' => json_encode($record['context']),
-                        'level' => $record['level'],
-                        'level_name' => $record['level_name'],
-                    ]);
+                if (config('glog.db_connection') == 'mongodb') {
+                    MongoDbLogger::create(
+                        [
+                            'channel' => $record['message'],
+                            'context' => json_encode($record['context']),
+                            'level' => $record['level'],
+                            'level_name' => $record['level_name'],
+                        ]);
+                } else {
+                    MySqlLogger::create(
+                        [
+                            'channel' => $record['message'],
+                            'context' => json_encode($record['context']),
+                            'level' => $record['level'],
+                            'level_name' => $record['level_name'],
+                        ]);
+                }
             }
         }
     }
@@ -78,9 +89,9 @@ class Glog extends AbstractProcessingHandler
             $this->connectHttp();
         }
 
-        curl_setopt($this->httpConnection, CURLOPT_POSTFIELDS,  $data);
+        curl_setopt($this->httpConnection, CURLOPT_POSTFIELDS, $data);
         curl_setopt($this->httpConnection, CURLOPT_HTTPHEADER, array(
-                "Authorization: Bearer ". config('glog.api_key', '12345'),
+                "Authorization: Bearer " . config('glog.api_key', '12345'),
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data)
             )
