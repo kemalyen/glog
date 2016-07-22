@@ -1,5 +1,6 @@
 ## A Log Handler for Monolog and Laravel PHP Framework
 
+Complete documentation can be found at [Wiki](https://github.com/gazatem/glog/wiki)
 
 ## Installation
 
