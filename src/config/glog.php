@@ -5,7 +5,7 @@ return [
 
     'service' => 'local',
 
-    'db_connection' => 'mongodb',
+    'db_connection' => 'mysql',
 
     'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
 
