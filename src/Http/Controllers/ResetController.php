@@ -16,7 +16,14 @@ class ResetController extends Controller
       $level = $request->get('level', null);
       $message = $request->get('message', null);
 
-      $logs = Logger::
+
+        if (config('glog.db_connection') == 'mongodb'){
+            $logger = new MongoDbLogger;
+        }else{
+            $logger = new MySqlLogger;
+        }
+
+      $logs = $logger->
       where(function ($query) use ($start_date){
               if ($start_date != null){
                   $query->whereRaw("DATE(created_at) >= DATE('$start_date')");
