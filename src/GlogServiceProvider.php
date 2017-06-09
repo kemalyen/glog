@@ -53,7 +53,7 @@ class GlogServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom( __DIR__.'/config/glog.php', 'glog');
-        $this->app['glog'] = $this->app->share(function($app) {
+        $this->app->singleton('glog', function ($app) {
             return new Glog;
         });
     }

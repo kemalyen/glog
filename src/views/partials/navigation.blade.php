@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand logo" href="#">Glog GUI</a>
+      <a class="navbar-brand logo" href="{{ route('glog_index') }}">Glog GUI</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
