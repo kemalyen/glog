@@ -41,7 +41,7 @@
          <label for="datepicker_end">End Date:</label>
          <input type="text" id="datepicker_end" name="end_date" class="form-control" >
      </div>
-   <button type="submit" class="btn btn-primary">Search</button>
+   <button type="submit" class="btn btn-search">Search</button>
 </form>
 
 <hr/>
@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="vleft">
-                <span class="label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span></td>
+                <span class="label label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span></td>
             </div>
             <div class="vright">
                 <strong>{{ isset($translations[$log->channel]) ? $translations[$log->channel] : $log->channel }}</strong>
