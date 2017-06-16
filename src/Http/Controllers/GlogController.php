@@ -6,12 +6,13 @@ use Illuminate\Routing\Controller as Controller;
 use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
 use Gazatem\Glog\Model\MongoDb\Log as MongoDbLogger;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class GlogController extends Controller
 {
     public function index(Request $request)
     {
-
+        \DB::connection('mongodb')->enableQueryLog();
         $start_date = $request->get('start_date', null);
         $end_date = $request->get('end_date', null);
 
@@ -24,16 +25,18 @@ class GlogController extends Controller
             $logger = new MySqlLogger;
         }
 
-        $logs = $logger->
-            where(function ($query) use ($start_date){
+        $logs = $logger
+                ->where(function ($query) use ($start_date){
                     if ($start_date != null){
-                        $query->whereRaw("DATE(created_at) >= DATE('$start_date')");
+                        $start_date = Carbon::createFromFormat('Y-m-d', $start_date);
+                        $query->where('created_at', '>=', $start_date);
                     }
                 })
 
                 ->where(function ($query) use ($end_date){
                     if ($end_date != null){
-                        $query->whereRaw("DATE(created_at) <= DATE('$end_date')");
+                        $end_date = Carbon::createFromFormat('Y-m-d', $end_date);
+                        $query->where('created_at', '<=', $end_date);
                     }
                 })
 
@@ -48,7 +51,7 @@ class GlogController extends Controller
                         $query->where("message" ,$message);
                     }
                 })
-                ->orderBy('created_at', 'desc')->paginate(100);
+                ->orderBy('created_at', 'desc')->paginate(10);
 
 
         $translations = config('glog.translations');
@@ -56,7 +59,6 @@ class GlogController extends Controller
         $channels = config('glog.channels');
 
         $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'yellow', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
-
-        return view('glog::index', compact('logs', 'translations', 'levels', 'level', 'message', 'start_date', 'end_date', 'channels', 'labels'));
+       return view('glog::index', compact('logs', 'translations', 'levels', 'level', 'message', 'start_date', 'end_date', 'channels', 'labels'));
     }
 }
