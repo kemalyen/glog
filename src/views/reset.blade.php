@@ -42,7 +42,7 @@
                  <input type="text" id="datepicker_end" name="end_date" class="form-control" >
              </div>
              <div class="form-group">
-               <button type="submit" class="btn btn-primary">Clear Logs</button>
+               <button type="submit" class="btn btn-search">Clear Logs</button>
              </div>
             </form>
         </div>

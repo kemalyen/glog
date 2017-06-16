@@ -51,7 +51,7 @@ class GlogController extends Controller
                         $query->where("message" ,$message);
                     }
                 })
-                ->orderBy('created_at', 'desc')->paginate(10);
+                ->orderBy('created_at', 'desc')->paginate(100);
 
 
         $translations = config('glog.translations');
