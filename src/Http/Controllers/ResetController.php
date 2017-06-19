@@ -15,7 +15,7 @@ class ResetController extends Controller
       $end_date = $request->get('end_date', null);
 
       $level = $request->get('level', null);
-      $message = $request->get('message', null);
+      $channel = $request->get('channel', null);
 
 
         if (config('glog.db_connection') == 'mongodb'){
@@ -40,9 +40,9 @@ class ResetController extends Controller
                     $query->where("level_name" ,$level);
                 }
             })
-            ->where(function ($query) use ($message){
-                if ($message != null){
-                    $query->where("message" ,$message);
+            ->where(function ($query) use ($channel){
+                if ($channel != null){
+                    $query->where("channel" ,$channel);
                 }
             });
 
@@ -56,12 +56,12 @@ class ResetController extends Controller
         $end_date = $request->get('end_date', null);
 
         $level = $request->get('level', null);
-        $message = $request->get('message', null);
+        $channel = $request->get('channel', null);
 
         $translations = config('glog.translations');
         $levels = config('glog.levels');
         $channels = config('glog.channels');
         $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'yellow', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
-        return view('glog::reset', compact('logs', 'translations', 'levels', 'level', 'message', 'start_date', 'end_date', 'channels', 'labels'));
+        return view('glog::reset', compact('logs', 'translations', 'levels', 'level', 'channel', 'start_date', 'end_date', 'channels', 'labels'));
     }
 }

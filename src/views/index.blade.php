@@ -20,10 +20,10 @@
 
      <div class="form-group">
          <label for="channels">Channels:</label>
-         <select name="channels" id="channels"  class="form-control">
+         <select name="channel" id="channel"  class="form-control">
             <option value=""> - - - - </option>
              @foreach($channels as $m)
-                @if($m == $message)
+                @if($m == $channel)
                 <option selected value="{{ $m }}">{{ isset($translations[$m]) ? $translations[$m] : $m }}</option>
                 @else
                 <option value="{{ $m }}">{{ isset($translations[$m]) ? $translations[$m] : $m }}</option>
