@@ -56,7 +56,7 @@ class GlogController extends Controller
         $levels = config('glog.levels');
         $channels = config('glog.channels');
 
-        $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'yellow', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
+        $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'warning', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
 
         return view('glog::index', compact('logs', 'translations', 'levels', 'level', 'channel', 'start_date', 'end_date', 'channels', 'labels'));
     }

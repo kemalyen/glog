@@ -61,7 +61,7 @@ class ResetController extends Controller
         $translations = config('glog.translations');
         $levels = config('glog.levels');
         $channels = config('glog.channels');
-        $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'yellow', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
+        $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'warning', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
         return view('glog::reset', compact('logs', 'translations', 'levels', 'level', 'channel', 'start_date', 'end_date', 'channels', 'labels'));
     }
 }
