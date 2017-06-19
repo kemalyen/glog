@@ -12,7 +12,8 @@ class GlogController extends Controller
 {
     public function index(Request $request)
     {
-        \DB::connection('mongodb')->enableQueryLog();
+        // to enbale mongodb query watch, you should comment out below line!
+        //\DB::connection('mongodb')->enableQueryLog();
         $start_date = $request->get('start_date', null);
         $end_date = $request->get('end_date', null);
 
