@@ -52,7 +52,7 @@ Run following command to publish migration and configuration
 
 Open config/glog.php file and update the settings.
 
-#USAGE
+## USAGE
 
 Do not fotget to include Log to your class
 
