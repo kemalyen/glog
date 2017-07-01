@@ -2,13 +2,12 @@
 
 namespace Gazatem\Glog\Http\Controllers;
 
-use Illuminate\Routing\Controller as Controller;
 use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
 use Gazatem\Glog\Model\MongoDb\Log as MongoDbLogger;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class GlogController extends Controller
+class GlogController extends BaseController
 {
     public function index(Request $request)
     {

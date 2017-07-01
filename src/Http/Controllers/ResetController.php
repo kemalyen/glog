@@ -2,12 +2,12 @@
 
 namespace Gazatem\Glog\Http\Controllers;
 
-use Illuminate\Routing\Controller as Controller;
+
 use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
 use Gazatem\Glog\Model\MongoDB\Log as MongoDbLogger;
 use Illuminate\Http\Request;
 
-class ResetController extends Controller
+class ResetController extends BaseController
 {
     public function clear(Request $request)
     {

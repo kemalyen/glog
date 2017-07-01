@@ -4,6 +4,8 @@ return [
 
     'service' => 'local',
 
+    'auth'  => 'true',
+
     'db_connection' => 'mysql',
 
     'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
