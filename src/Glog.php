@@ -2,8 +2,7 @@
 
 namespace Gazatem\Glog;
 
-use Gazatem\Glog\Model\MongoDb\Log as MongoDbLogger;
-use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
+use Gazatem\Glog\Model\Logger;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;
 use Illuminate\Support\Facades\Mail;
@@ -28,7 +27,6 @@ class Glog extends AbstractProcessingHandler
 
         if ($send_notification) {
             $messages = config('glog.messages');
-
             $data = ['record' => $record, 'action' => (isset($messages[$record['message']]) ? $messages[$record['message']] : $record['message'])];
             Mail::send("glog::email.notification", $data, function ($message) {
                 $message->to(config('glog.mail_to'))->subject(config('glog.mail_subject'));
@@ -39,23 +37,13 @@ class Glog extends AbstractProcessingHandler
             if (config('glog.service', 'local') === 'remote') {
                 $this->post_remote($record);
             } else {
-                if (config('glog.db_connection') == 'mongodb') {
-                    MongoDbLogger::create(
-                        [
-                            'channel' => $record['message'],
-                            'context' => json_encode($record['context']),
-                            'level' => $record['level'],
-                            'level_name' => $record['level_name'],
-                        ]);
-                } else {
-                    MySqlLogger::create(
-                        [
-                            'channel' => $record['message'],
-                            'context' => json_encode($record['context']),
-                            'level' => $record['level'],
-                            'level_name' => $record['level_name'],
-                        ]);
-                }
+                $logger = new Logger((config('glog.db_connection') == 'mysql') ? Model\MySql\Log::class : Model\MongoDb\Log::class);
+                $logger->create([
+                    'channel' => $record['message'],
+                    'context' => json_encode($record['context']),
+                    'level' => $record['level'],
+                    'level_name' => $record['level_name'],
+                ]);
             }
         }
     }
