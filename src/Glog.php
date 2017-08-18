@@ -2,6 +2,7 @@
 
 namespace Gazatem\Glog;
 
+use Gazatem\Glog\Events\MailLog;
 use Gazatem\Glog\Model\Logger;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;
@@ -31,6 +32,7 @@ class Glog extends AbstractProcessingHandler
             Mail::send("glog::email.notification", $data, function ($message) {
                 $message->to(config('glog.mail_to'))->subject(config('glog.mail_subject'));
             });
+            event(new MailLog($data));
         }
 
         if ($hasLevel && $hasChannel) {
