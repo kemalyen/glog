@@ -29,11 +29,6 @@ class Glog extends AbstractProcessingHandler
         if ($send_notification) {
             $messages = config('glog.messages');
             $data = ['record' => $record, 'action' => (isset($messages[$record['message']]) ? $messages[$record['message']] : $record['message'])];
-
-/*            Mail::send("glog::email.notification", $data, function ($message) {
-                $message->to(config('glog.mail_to'))->subject(config('glog.mail_subject') . "deneme");
-            });*/
-
             event(new MailLog($data));
         }
 

@@ -26,7 +26,15 @@ Open your config/app.php add following line in the providers array
 Gazatem\Glog\GlogServiceProvider::class
 ```
 
-Then in your bootstrap/app.php add / update your Monolog configiuration.
+Additionally add the listener to your app/Providers/EventServiceProvider.php:
+
+```php
+        \Gazatem\Glog\Events\MailLog::class => [
+            \Gazatem\Glog\Listeners\MailListener::class,
+        ],
+```
+
+Then in your bootstrap/app.php add / update your Monolog configuration.
 
 ```php
 $app->configureMonologUsing(function ($monolog) {
@@ -39,20 +47,20 @@ Run following command to publish migration and configuration
 
 
 ```php
- php artisan vendor:publish
+ php artisan vendor:publish --provider="Gazatem\Glog\GlogServiceProvider"
 ```
 
-
+To create database tables, run migration:
 ```php
  php artisan migrate
 ```
 
 
-
+Thats all now start to log the events.
 
 Open config/glog.php file and update the settings.
 
-## USAGE
+### USAGE
 
 Do not fotget to include Log to your class
 
@@ -66,5 +74,5 @@ Log::info('user.register', ['message' => 'User Registration Controller', 'id' =>
 ```
 
 
-## Links
+### Links
 [gazatem.com](https://www.gazatem.com)
