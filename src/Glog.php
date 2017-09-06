@@ -6,7 +6,6 @@ use Gazatem\Glog\Events\MailLog;
 use Gazatem\Glog\Model\Logger;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;
-use Illuminate\Support\Facades\Mail;
 
 class Glog extends AbstractProcessingHandler
 {

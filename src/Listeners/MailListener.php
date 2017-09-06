@@ -8,7 +8,6 @@
 
 namespace Gazatem\Glog\Listeners;
 
-
 use Gazatem\Glog\Events\MailLog;
 use Illuminate\Support\Facades\Mail;
 
