@@ -88,3 +88,8 @@ strong{
 .vright {
     display: block;
 }
+
+
+blockquote{
+    font-size: 12px;
+}
