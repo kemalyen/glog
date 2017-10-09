@@ -14,11 +14,13 @@ class OutputGenerator
 
             foreach ($logs as $key => $value) {
                 if (is_array($value)) {
+                    echo "<strong>". ucfirst($key) .":</strong><br/>";
+                    echo "<blockquote>";
                     self::parse($value);
+                    echo "</blockquote>";
                 } else {
                     echo $key . ': ' . $value . '<br/>';
                 }
-
             }
 
         } catch (Exception $ex) {
@@ -29,8 +31,15 @@ class OutputGenerator
     static function parse($logs)
     {
         foreach ($logs as $key => $value) {
-            echo $key . ': ' . $value . '<br/>';
+            if (is_array($value)) {
+                echo "<strong>". ucfirst($key) .":</strong><br/>";
+                echo "<blockquote>";
+                self::parse($value);
+                echo "</blockquote>";
+
+            } else {
+                echo $key . ': ' . $value . '<br/>';
+            }
         }
     }
-
 }
