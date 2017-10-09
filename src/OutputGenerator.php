@@ -1,22 +1,36 @@
 <?php
+
 namespace Gazatem\Glog;
 
 use Exception;
 
-class OutputGenerator{
+class OutputGenerator
+{
 
-  static function get_message($logMessage){
-    try{
-      $logMessage = json_decode($logMessage);
-      if (isset($logMessage->message)){
-        echo $logMessage->message;
-      }elseif (is_array($logMessage)){
-        echo $logMessage[0];
-      }else{
-          echo $logMessage;
-      }
-    }catch(Exception $ex){
-       echo $ex->getMessage();
+    static function get_message($logMessage)
+    {
+        try {
+            $logs = json_decode($logMessage, true);
+
+            foreach ($logs as $key => $value) {
+                if (is_array($value)) {
+                    self::parse($value);
+                } else {
+                    echo $key . ': ' . $value . '<br/>';
+                }
+
+            }
+
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
-  }
+
+    static function parse($logs)
+    {
+        foreach ($logs as $key => $value) {
+            echo $key . ': ' . $value . '<br/>';
+        }
+    }
+
 }
