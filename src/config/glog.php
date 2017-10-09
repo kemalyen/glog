@@ -4,7 +4,7 @@ return [
 
     'service' => 'local',
 
-    'auth'  => 'true',
+    'middlewares' => ['web', 'auth', 'App\Http\Middleware\LogAccess'],
 
     'db_connection' => 'mysql',
 
