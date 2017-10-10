@@ -3,7 +3,7 @@
 Route::group(
     [
         'prefix' => Config::get("glog.route-prefix"),
-        'middleware' => ['web', 'auth']
+        'middleware' => Config::get("glog.middlewares")
     ],
     function () {
         Route::get('/', ['uses' => 'GlogController@index', 'as' => 'glog_index']);
