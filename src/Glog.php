@@ -77,7 +77,7 @@ class Glog extends AbstractProcessingHandler
 
         curl_setopt($this->httpConnection, CURLOPT_POSTFIELDS, $data);
         curl_setopt($this->httpConnection, CURLOPT_HTTPHEADER, array(
-                "Authorization: Bearer " . config('glog.api_key', '12345'),
+                "Authorization: Bearer " . config('glog.api_key', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjRmMWcyM2ExMmFhIn0.eyJpc3MiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImF1ZCI6Imh0dHA6XC9cL2V4YW1wbGUub3JnIiwianRpIjoiNGYxZzIzYTEyYWEiLCJpYXQiOjE1MDcwMzQ1NzQsIm5iZiI6MTUwNzAzNDYzNCwiZXhwIjoxNTA3MDM4MTc0LCJjb21wYW55X2lkIjoiMiJ9.qaSyH_8m8vsmSfpoPq-C9eqSI3BTIPHoy7r8u9KISac'),
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data)
             )
