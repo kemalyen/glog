@@ -1,8 +1,8 @@
 <?php
 return [
-    'service' => 'local',
+    'service' => 'local', 
     'middlewares' => ['web', 'auth', 'App\Http\Middleware\LogAccess'],
-    'remote_host'   => 'http://api.monitor.app',
+    'remote_host'   => 'http://api.loggfy.com',
     'db_connection' => 'mysql',
     'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
     'channels' => ['blog-home', 'blog-post', 'blog-category', 'user-login'],
@@ -14,5 +14,6 @@ return [
         'user.register' => 'A new user registered',
         'log' => 'LOG',
     ],
+    'api_key'   => '',    
     'route-prefix' => 'logs',
 ];
