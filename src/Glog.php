@@ -10,6 +10,7 @@ use Monolog\Handler\Curl\Util;
 class Glog extends AbstractProcessingHandler
 {
     private $httpConnection = null;
+    private $remote_host = 'http://api.loggfy.com';
 
     protected function write(array $record)
     {
@@ -49,7 +50,6 @@ class Glog extends AbstractProcessingHandler
     private function post_remote(array $record)
     {
         $date = $record['datetime'];
-
         $data = array('time' => $date->format('Y-m-d\TH:i:s.uO'));
         unset($record['datetime']);
 
@@ -74,10 +74,9 @@ class Glog extends AbstractProcessingHandler
         if (!$this->httpConnection) {
             $this->connectHttp();
         }
-
         curl_setopt($this->httpConnection, CURLOPT_POSTFIELDS, $data);
         curl_setopt($this->httpConnection, CURLOPT_HTTPHEADER, array(
-                "Authorization: Bearer " . config('glog.api_key', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjRmMWcyM2ExMmFhIn0.eyJpc3MiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImF1ZCI6Imh0dHA6XC9cL2V4YW1wbGUub3JnIiwianRpIjoiNGYxZzIzYTEyYWEiLCJpYXQiOjE1MDcwMzQ1NzQsIm5iZiI6MTUwNzAzNDYzNCwiZXhwIjoxNTA3MDM4MTc0LCJjb21wYW55X2lkIjoiMiJ9.qaSyH_8m8vsmSfpoPq-C9eqSI3BTIPHoy7r8u9KISac'),
+                "Authorization: Bearer " . config('glog.api_key'),
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data)
             )
@@ -95,10 +94,10 @@ class Glog extends AbstractProcessingHandler
             throw new \LogicException('The curl extension is needed to use http URLs');
         }
 
-        $this->httpConnection = curl_init(config('glog.remote_host', 'http://test.gazatem.com'));
+        $this->httpConnection = curl_init($this->remote_host);
 
         if (!$this->httpConnection) {
-            throw new \LogicException('Unable to connect to ' . config('glog.remote_host', 'http://test.gazatem.com'));
+            throw new \LogicException('Unable to connect to ' . $this->remote_host);
         }
 
         curl_setopt($this->httpConnection, CURLOPT_POST, "POST");
