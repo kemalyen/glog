@@ -9,21 +9,43 @@ return [
 
     'service' => env('GLOG_SERVICE', 'remote'), 
 
+
+
+    // #########################################################
+    // L O C A L  S E T T I N G S
+    //
     // if you will run glog on local need to update these settings
+
+    // Secure your log panel
     'middlewares' => ['web', 'auth', 'App\Http\Middleware\LogAccess'],
+
+    // glog uses mysql default, but can be choose mongodb
     'db_connection' => env('DB_CONNECTION', 'mysql'),
-    'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
-    'channels' => ['blog-home', 'blog-post', 'blog-category', 'user-login'],
+
+    // To create an alert, enter level and channel pair here
+    // Example: 'notification' => ['test-channel' => ['CRITICAL', 'ALERT']],
     'notification' => [],
     'mail_subject' => 'gLog notification mail',
     'mail_to' => env('MAIL_FROM'),
     'translations' => [
-        'action.failed' => 'Action failed',
-        'user.register' => 'A new user registered',
-        'log' => 'LOG',
+        'test-channe' => 'A sample channel'
     ],
-    'route-prefix' => 'logs',
 
+    // Panel route path
+    'route-prefix' => 'logs-panel',
+
+
+
+    // #########################################################
+    // R E M O T E  S E R V I C E
+    //
     // For hosted version, enter your api key 
     'api_key'   => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjRmMWcyM2ExMmFhIn0.eyJpc3MiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImF1ZCI6Imh0dHA6XC9cL2V4YW1wbGUub3JnIiwianRpIjoiNGYxZzIzYTEyYWEiLCJpYXQiOjE1MTIyOTE2ODMsIm5iZiI6MTUxMjI5MTc0MywiY29tcGFueV9pZCI6IjEifQ.jq0__JqOQJZwAchM7duBwEwh_F-lvEPB_dN349ThHiU',
+
+
+    // Common settings!
+
+    // All channels must be entered before to send the API. 
+    'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
+    'channels' => ['test-channel'],    
 ];
