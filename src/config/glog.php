@@ -40,7 +40,7 @@ return [
     // R E M O T E  S E R V I C E
     //
     // For hosted version, enter your api key 
-    'api_key'   => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjRmMWcyM2ExMmFhIn0.eyJpc3MiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImF1ZCI6Imh0dHA6XC9cL2V4YW1wbGUub3JnIiwianRpIjoiNGYxZzIzYTEyYWEiLCJpYXQiOjE1MTIyOTE2ODMsIm5iZiI6MTUxMjI5MTc0MywiY29tcGFueV9pZCI6IjEifQ.jq0__JqOQJZwAchM7duBwEwh_F-lvEPB_dN349ThHiU',
+    'api_key'   => '',
 
 
     // Common settings!
