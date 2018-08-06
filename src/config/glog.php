@@ -7,7 +7,7 @@ return [
     // and your api key
     // To get your api key, browse to www.loggfy.com
 
-    'service' => env('GLOG_SERVICE', 'remote'), 
+    'service' => env('GLOG_SERVICE', 'local'), 
 
 
 
@@ -17,7 +17,7 @@ return [
     // if you will run glog on local need to update these settings
 
     // Secure your log panel
-    'middlewares' => ['web', 'auth', 'App\Http\Middleware\LogAccess'],
+    'middlewares' => ['web'],
 
     // glog uses mysql default, but can be choose mongodb
     'db_connection' => env('DB_CONNECTION', 'mysql'),
@@ -25,7 +25,7 @@ return [
     // To create an alert, enter level and channel pair here
     // Example: 'notification' => ['test-channel' => ['CRITICAL', 'ALERT']],
     'notification' => [],
-    'mail_subject' => 'gLog notification mail',
+    'mail_subject' => 'Glog notification mail',
     'mail_to' => env('MAIL_FROM'),
     'translations' => [
         'test-channe' => 'A sample channel'

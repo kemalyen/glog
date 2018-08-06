@@ -57,4 +57,8 @@ class GlogServiceProvider extends ServiceProvider
             return new Glog;
         });
     }
+
+    public function provides() {
+        return ['glog'];
+    }
 }
