@@ -20,6 +20,33 @@ Don't forget to dump composer autoload
 composer dump-autoload
 ```
 
+### Laravel 5.6 Installation Guide
+
+I've upgraded the script and it's now suitable to use with Laraveş 5.6 Since you do not add `Gazatem\Glog\GlogServiceProvider::class,` to config. Bu you need some changes on logging config. 
+
+
+Open config/logging.php and add following array item to configuration file:
+
+```php
+        'glog' => [
+            'driver'  => 'monolog',
+            'handler' => \Gazatem\Glog\Glog::class,
+        ],
+```
+
+And later do not forget to modify stack and add glog to stack. That is first item of configuration:
+
+```php
+        'stack' => [
+            'driver' => 'stack',
+            'channels' => ['single', 'glog'],
+        ],
+```
+
+
+
+### Laravel 5.4 and earlier versions Installation Guide
+
 Open your config/app.php add following line in the providers array
 
 ```php
@@ -41,7 +68,6 @@ $app->configureMonologUsing(function ($monolog) {
     $monolog->pushHandler(new \Gazatem\Glog\Glog());
 });
 ```
-
 
 Run following command to publish migration and configuration
 
