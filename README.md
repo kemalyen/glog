@@ -1,104 +1,268 @@
-## A Log Handler for Monolog and Laravel PHP Framework
+## A Log Handler and Log Analysis Tool for Laravel PHP Framework
+
+  
+
+Glog helps your team monitoring your application log. Glog works with Monolog to handle the logs. But with a custom configuration,
+
+you can save logs to database using custom rules and channels. Custom channel and log levels triggers the log alerting system and send alerts to target email addresses.
+
+
+Also Glog provides a custom administrator panel to analyze the logs. Panel uses Laravel main authentication system, so you do not need to protect log control panel.
+  
+
+Glog supports MongoDB and mySQL. If your project needs to store more logs, you may use MongoDB. For small projects, mysql is enough to manage the logs.
+
+  
 
 Complete documentation can be found at [Wiki](https://github.com/gazatem/glog/wiki)
 
+  
+
 ## Installation
 
-Add the following to your composer.json and run `composer update`
+  
 
-```json
-{
-    "require": {
-        "gazatem/glog": "dev-master"
-    }
-}
+To get started, use Composer to add the package to your project's dependencies:
+
+  
+
+```bash
+
+  
+
+composer require gazatem/glog
+
+  
+
 ```
 
-Don't forget to dump composer autoload
+  
+  
 
-```php
-composer dump-autoload
-```
+### Laravel 5.7 Installation Guide (includes 5.5 and newer versions)
 
-### Laravel 5.6 Installation Guide
+  
 
-I've upgraded the script and it's now suitable to use with Laraveş 5.6 Since you do not add `Gazatem\Glog\GlogServiceProvider::class,` to config. Bu you need some changes on logging config. 
+If you're using a later version of Laravel 5.5, service provider  will automatically get registered. For older versions you need to do it your self.  
 
 
 Open config/logging.php and add following array item to configuration file:
 
+  
+
 ```php
-        'glog' => [
-            'driver'  => 'monolog',
-            'handler' => \Gazatem\Glog\Glog::class,
-        ],
+
+'glog'  => [
+
+'driver'  =>  'monolog',
+
+'handler'  =>  \Gazatem\Glog\Glog::class,
+
+],
+
 ```
+
+  
 
 And later do not forget to modify stack and add glog to stack. That is first item of configuration:
 
+  
+
 ```php
-        'stack' => [
-            'driver' => 'stack',
-            'channels' => ['single', 'glog'],
-        ],
+
+'stack'  => [
+
+'driver'  =>  'stack',
+
+'channels'  => ['single', 'glog'],
+
+],
+
 ```
 
 
-
+  
 ### Laravel 5.4 and earlier versions Installation Guide
+
+  
 
 Open your config/app.php add following line in the providers array
 
+  
+
 ```php
+
 Gazatem\Glog\GlogServiceProvider::class
+
 ```
+
+  
+Then in your bootstrap/app.php add / update your Monolog configuration.
+
+  
+
+```php
+
+$app->configureMonologUsing(function ($monolog) {
+
+$monolog->pushHandler(new \Gazatem\Glog\Glog());
+
+});
+
+```
+  
+### Mail Alert System 
 
 Additionally add the listener to your app/Providers/EventServiceProvider.php:
 
-```php
-        \Gazatem\Glog\Events\MailLog::class => [
-            \Gazatem\Glog\Listeners\MailListener::class,
-        ],
-```
-
-Then in your bootstrap/app.php add / update your Monolog configuration.
+  
 
 ```php
-$app->configureMonologUsing(function ($monolog) {
-    $monolog->pushHandler(new \Gazatem\Glog\Glog());
-});
+
+\Gazatem\Glog\Events\MailLog::class  => [
+
+\Gazatem\Glog\Listeners\MailListener::class,
+
+],
+
 ```
+
+  
+
+
+   
+
+  
+  
+  
+
+
+
+  
+  
+  
+### Publish settings
+
+
 
 Run following command to publish migration and configuration
 
+  
+  
 
 ```php
- php artisan vendor:publish --provider="Gazatem\Glog\GlogServiceProvider"
+
+php  artisan  vendor:publish  --provider="Gazatem\Glog\GlogServiceProvider"
+
 ```
+
+ ### Migration 
 
 To create database tables, run migration:
+
 ```php
- php artisan migrate
+
+php  artisan  migrate
+
 ```
 
+  
+  
 
-Thats all now start to log the events.
+That's all now, now let's start to log the events.
 
-Open config/glog.php file and update the settings.
+  
+###  Configuration
 
-### USAGE
-
-Do not fotget to include Log to your class
+All system configuration is under config folder inside glog.php file. This file simply store system configuration. Add custom channels, update database and route of the control panel.
 
 ```php
-use Log;
+<?php
+
+return [
+
+  // No need to change it now, thats for future releases!
+
+'service'  =>  env('GLOG_SERVICE', 'local'),
+
+  
+  
+  
+  
+
+// Secure your log panel
+
+'middlewares'  => ['web', 'App\Http\Middleware\LogAccess'],
+
+  
+
+// glog uses mysql default, but can be choose mongodb
+
+'db_connection'  =>  env('DB_CONNECTION', 'mysql'),
+
+  
+
+// To create an alert, enter level and channel pair here
+
+// Example: 'notification' => ['test-channel' => ['CRITICAL', 'ALERT']],
+
+'notification'  => [],
+
+'mail_subject'  =>  'Glog notification mail',
+
+'mail_to'  =>  env('MAIL_FROM'),
+
+'translations'  => [
+
+'test-channe'  =>  'A sample channel'
+
+],
+
+  
+
+// Panel route path
+
+'route-prefix'  =>  'logs-panel',
+
+  
+
+// All channels must be entered before to send the API.
+
+'levels'  => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
+
+'channels'  => ['test-channel', 'user.register'],
+
+];
+```
+  
+
+### Usage
+
+  
+
+Do not fotget to include Log to your class.
+
+  
+
+```php
+
+use  Log;
+
 ```
 
-And add log entry
+  
+
+And add some log entries:
+
 ```php
+
 Log::info('user.register', ['message' => 'User Registration Controller', 'id' => 23, 'name' => 'John Doe', 'email' => 'john@example.com']);
+
 ```
 
+  
+  
 
 ### Links
+
 [gazatem.com](https://www.gazatem.com)
