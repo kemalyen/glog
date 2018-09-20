@@ -4,21 +4,50 @@ Complete documentation can be found at [Wiki](https://github.com/gazatem/glog/wi
 
 ## Installation
 
-Add the following to your composer.json and run `composer update`
+To get started, use Composer to add the package to your project's dependencies:
 
-```json
-{
-    "require": {
-        "gazatem/glog": "dev-master"
-    }
-}
+```bash
+
+    composer require josiasmontag/laravel-email-verification
+
 ```
 
-Don't forget to dump composer autoload
+
+### Laravel 5.t Installation Guide (includes 5.5 and newer versions)
+
+I've upgraded the script and it's now suitable to use with Laravel 5.7. Since you do not add Gazatem\Glog\GlogServiceProvider::class, to config. Bu you need some changes on logging config.
+
 
 ```php
-composer dump-autoload
+        'glog' => [
+            'driver'  => 'monolog',
+            'handler' => \Gazatem\Glog\Glog::class,
+        ],
 ```
+
+
+
+Open config/logging.php and add following array item to configuration file:
+
+```php
+        'glog' => [
+            'driver'  => 'monolog',
+            'handler' => \Gazatem\Glog\Glog::class,
+        ],
+```
+
+And later do not forget to modify stack and add glog to stack. That is first item of configuration:
+
+```php
+        'stack' => [
+            'driver' => 'stack',
+            'channels' => ['single', 'glog'],
+        ],
+```
+
+
+
+### Laravel 5.4 and earlier versions Installation Guide
 
 Open your config/app.php add following line in the providers array
 
@@ -41,7 +70,6 @@ $app->configureMonologUsing(function ($monolog) {
     $monolog->pushHandler(new \Gazatem\Glog\Glog());
 });
 ```
-
 
 Run following command to publish migration and configuration
 

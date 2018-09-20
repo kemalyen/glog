@@ -14,16 +14,15 @@ class GlogServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            realpath(__DIR__.'/migrations') => $this->app->databasePath().'/migrations',
-            realpath(__DIR__.'/config/glog.php') => config_path('glog.php'),
-        ], 'glog');
-
-        $this->publishes([
             __DIR__.'/public' => public_path('vendor/gazatem/glog'),
         ], 'public');
 
+        $this->publishes([
+            __DIR__.'/config/glog.php' => config_path('glog.php')
+        ], 'glog-config');
 
-        $this->setupRoutes($this->app->router);
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__ . '/views', 'glog');
         $this->bladeDirectives();
     }
@@ -34,16 +33,7 @@ class GlogServiceProvider extends ServiceProvider
             return "<?php \\Gazatem\Glog\OutputGenerator::get_message({$log_text}); ?>";
         });
      }
-
-    public function setupRoutes(Router $router)
-    {
-        $router->group(
-            ['namespace' => 'Gazatem\Glog\Http\Controllers'],
-            function ($router) {
-                include __DIR__.'/Http/routes.php';
-            }
-        );
-    }
+ 
 
     /**
      * Register the application services.

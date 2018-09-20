@@ -26,12 +26,8 @@
                 "Gazatem\\Glog\\GlogServiceProvider"
             ],
             "aliases": {
-                "Debugbar": "Gazatem\\Glog\\Facade\\Glog"
+ 
             }
         }
-    },
-    "require-dev": {
-        "illuminate/framework": "5.5.x"
     }
 }
-
