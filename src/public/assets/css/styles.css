@@ -1,12 +1,12 @@
 
 .navbar-glog {
-    background-color: #210029;
+    background-color: #000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .spacer {padding: 10px; clear:both }
 .main{padding-top: 85px}
-   
+
 strong{
     line-height: 180%;
 }
@@ -21,7 +21,7 @@ strong{
 .logdate {
     float: right;
     font-size: 70%
-} 
+}
 
 blockquote{
     font-size: 12px;

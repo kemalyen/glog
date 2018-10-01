@@ -21,11 +21,15 @@ class GlogServiceProvider extends ServiceProvider
             __DIR__.'/config/glog.php' => config_path('glog.php')
         ], 'glog-config');
 
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'glog');
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'glog');
+
+        $this->publishes([
+            __DIR__.'/resources/lang/' => resource_path('lang/vendor/glog'),
+        ]);
 
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__ . '/views', 'glog');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'glog');
         $this->bladeDirectives();
     }
 
@@ -35,7 +39,7 @@ class GlogServiceProvider extends ServiceProvider
             return "<?php \\Gazatem\Glog\OutputGenerator::get_message({$log_text}); ?>";
         });
     }
- 
+
 
     /**
      * Register the application services.
