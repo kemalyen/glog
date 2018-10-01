@@ -19,33 +19,33 @@ class GlogController extends BaseController
         $level = $request->get('level', null);
         $channel = $request->get('channel', null);
 
-        if (config('glog.db_connection') == 'mongodb'){
+        if (config('glog.db_connection') == 'mongodb') {
             $logger = new MongoDbLogger;
-        }else{
+        } else {
             $logger = new MySqlLogger;
         }
         
         $logs = $logger
-                ->where(function ($query) use ($start_date){
-                    if ($start_date != null){
+                ->where(function ($query) use ($start_date) {
+                    if ($start_date != null) {
                         $start_date = Carbon::createFromFormat('Y-m-d', $start_date);
                         $query->where('created_at', '>=', $start_date);
                     }
                 })
-                ->where(function ($query) use ($end_date){
-                    if ($end_date != null){
+                ->where(function ($query) use ($end_date) {
+                    if ($end_date != null) {
                         $end_date = Carbon::createFromFormat('Y-m-d', $end_date);
                         $query->where('created_at', '<=', $end_date);
                     }
                 })
-                ->where(function ($query) use ($level){
-                    if ($level != null){
-                        $query->where("level_name" ,$level);
+                ->where(function ($query) use ($level) {
+                    if ($level != null) {
+                        $query->where("level_name", $level);
                     }
                 })
-                ->where(function ($query) use ($channel){
-                    if ($channel != null){
-                        $query->where("channel" ,$channel);
+                ->where(function ($query) use ($channel) {
+                    if ($channel != null) {
+                        $query->where("channel", $channel);
                     }
                 })
                 ->orderBy('created_at', 'desc')->paginate(100);

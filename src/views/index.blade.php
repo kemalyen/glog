@@ -1,12 +1,15 @@
 @extends('glog::layout.master')
+@section('title')
+    {{ __('glog::trans.home') }}
+    @parent
+@stop
 
 @section('content')
 
  <form class="form-inline" action="" method="get">
 
-     <div class="form-group">
-         <label for="level">Level:</label>
-         <select name="level" id="level" class="form-control">
+         <label for="level" class="m-2">Level:</label>
+         <select name="level" id="level" class="form-control m-2">
          <option value=""> - - - - </option>
              @foreach($levels as $l)
                 @if($l == $level)
@@ -16,11 +19,9 @@
                 @endif
              @endforeach
          </select>
-     </div>
-
-     <div class="form-group">
-         <label for="channels">Channels:</label>
-         <select name="channel" id="channel"  class="form-control">
+ 
+         <label for="channels" class="m-2">Channels:</label>
+         <select name="channel" id="channel"  class="form-control m-2">
             <option value=""> - - - - </option>
              @foreach($channels as $m)
                 @if($m == $channel)
@@ -30,17 +31,13 @@
                 @endif
              @endforeach
          </select>
-     </div>
-
-     <div class="form-group">
-         <label for="datepicker_start">Start Date:</label>
-         <input type="text" id="datepicker_start" name="start_date" class="form-control" >
-     </div>
-
-     <div class="form-group">
-         <label for="datepicker_end">End Date:</label>
-         <input type="text" id="datepicker_end" name="end_date" class="form-control" >
-     </div>
+ 
+         <label for="datepicker_start" class="m-2">Start Date:</label>
+         <input type="text" id="datepicker_start" name="start_date" class="form-control m-2" >
+ 
+         <label for="datepicker_end" class="m-2">End Date:</label>
+         <input type="text" id="datepicker_end" name="end_date" class="form-control m-2" >
+      
    <button type="submit" class="btn btn-search">Search</button>
 </form>
 
@@ -48,9 +45,9 @@
 
 @foreach($logs as $log)
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12">
             <div class="vleft">
-                <span class="label label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span>ss</td>
+                <span class="label label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span></td>
             </div>
             <div class="vright">
                 <strong>{{ isset($translations[$log->channel]) ? $translations[$log->channel] : $log->channel }}</strong>
@@ -68,13 +65,10 @@
 
 @section('scripts')
     <script>
-        $("#datepicker_start" ).datepicker();
-        $("#datepicker_start" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-        $("#datepicker_start" ).datepicker("setDate", '{{ $start_date }}');
-
-        $("#datepicker_end" ).datepicker();
-        $("#datepicker_end" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-        $("#datepicker_end" ).datepicker("setDate", '{{ $end_date }}');
-        $('select').select2();
+        $("#datepicker_start" ).datepicker({ format: 'yyyy-dd-mm' });
+        $("#datepicker_end" ).datepicker({ format: 'yyyy-dd-mm' });
+        $('select').select2({
+            theme: "bootstrap"
+        });
     </script>
  @stop

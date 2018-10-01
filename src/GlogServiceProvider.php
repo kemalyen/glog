@@ -21,6 +21,8 @@ class GlogServiceProvider extends ServiceProvider
             __DIR__.'/config/glog.php' => config_path('glog.php')
         ], 'glog-config');
 
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'glog');
+
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__ . '/views', 'glog');
@@ -29,10 +31,10 @@ class GlogServiceProvider extends ServiceProvider
 
     private function bladeDirectives()
     {
-        \Blade::directive('logMessage', function($log_text) {
+        \Blade::directive('logMessage', function ($log_text) {
             return "<?php \\Gazatem\Glog\OutputGenerator::get_message({$log_text}); ?>";
         });
-     }
+    }
  
 
     /**
@@ -42,13 +44,14 @@ class GlogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom( __DIR__.'/config/glog.php', 'glog');
+        $this->mergeConfigFrom(__DIR__.'/config/glog.php', 'glog');
         $this->app->singleton('glog', function ($app) {
             return new Glog;
         });
     }
 
-    public function provides() {
+    public function provides()
+    {
         return ['glog'];
     }
 }
