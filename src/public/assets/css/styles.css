@@ -21,16 +21,7 @@ strong{
 .logdate {
     float: right;
     font-size: 70%
-}
-
-.line:hover{
-    background: rgb(240, 238, 236); 
-}
-
-.vright {
-    display: block;
-}
-
+} 
 
 blockquote{
     font-size: 12px;

@@ -26,6 +26,7 @@
 
 <footer class="footer">
     <div class="container">
+        <hr/>
         <p class="text-muted">
             &copy; 2018 <a href="http://www.gazatem.com">Gazatem</a>
         </p>

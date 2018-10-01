@@ -38,24 +38,22 @@
          <label for="datepicker_end" class="m-2">End Date:</label>
          <input type="text" id="datepicker_end" name="end_date" class="form-control m-2" >
       
-   <button type="submit" class="btn btn-search">Search</button>
+       <button type="submit" class="btn btn-outline-dark m-2">Search</button>
 </form>
 
 <hr/>
 
 @foreach($logs as $log)
-    <div class="row">
-        <div class="col-md-12">
-            <div class="vleft">
-                <span class="label label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span></td>
-            </div>
-            <div class="vright">
-                <strong>{{ isset($translations[$log->channel]) ? $translations[$log->channel] : $log->channel }}</strong>
-                <pre>@logMessage($log->context)</pre>
-                <div class="subtitle">
-                    <span class="glyphicon glyphicon-time"></span> {{ $log->getDateDiff() }} |  {{ date('d F Y H:s:i', strtotime($log->created_at)) }}
-                </div>
-            </div>
+    <div class="row line" id="{{ $log->id }}">
+        <div class="col-md-2">
+            {{ $log->level_name }}<br/>
+            <strong>{{ isset($translations[$log->channel]) ? $translations[$log->channel] : $log->channel }}</strong>
+        </div>
+        <div class="col-md-8">
+            <pre>@logMessage($log->context)</pre>
+        </div>        
+        <div class="col-md-2 logdate">
+            {{ $log->getDateDiff() }} |  {{ date('d F Y H:i', strtotime($log->created_at)) }}
         </div>
     </div>
 @endforeach
@@ -70,5 +68,10 @@
         $('select').select2({
             theme: "bootstrap"
         });
+
+        $('.line').on('click', function(){
+            let id = $(this).data('id');
+            window.location = '{{ route('glog_index') }}/'+ id + '/view';
+        })
     </script>
  @stop
