@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="vleft">
-                <span class="label label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span></td>
+                <span class="label label label-{{ $labels[$log->level_name] }}">{{ $log->level_name }}</span>ss</td>
             </div>
             <div class="vright">
                 <strong>{{ isset($translations[$log->channel]) ? $translations[$log->channel] : $log->channel }}</strong>
