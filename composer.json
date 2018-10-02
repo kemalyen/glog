@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Gazatem\\Glog\\GlogServiceProvider"
+                "Gazatem\\Glog\\Providers\\GlogServiceProvider"
             ],
             "aliases": {
  

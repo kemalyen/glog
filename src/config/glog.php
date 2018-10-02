@@ -1,13 +1,14 @@
 <?php
 return [
 
+    'appname'   => 'Glog UI',
     // Choose your service: local or remote
-    // we allow you run glog local with limited features 
+    // we allow you run glog local with limited features
     // if you wish to use our service enter 'remote' in service option
     // and your api key
     // To get your api key, browse to www.loggfy.com
 
-    'service' => env('GLOG_SERVICE', 'local'), 
+    'service' => env('GLOG_SERVICE', 'local'),
 
 
 
@@ -39,13 +40,13 @@ return [
     // #########################################################
     // R E M O T E  S E R V I C E
     //
-    // For hosted version, enter your api key 
+    // For hosted version, enter your api key
     'api_key'   => '',
 
 
     // Common settings!
 
-    // All channels must be entered before to send the API. 
+    // All channels must be entered before to send the API.
     'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
-    'channels' => ['test-channel'],    
+    'channels' => ['test-channel'],
 ];

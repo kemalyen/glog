@@ -42,7 +42,7 @@
                  <input type="text" id="datepicker_end" name="end_date" class="form-control" >
              </div>
              <div class="form-group">
-               <button type="submit" class="btn btn-search">Clear Logs</button>
+               <button type="submit" class="btn btn-sm btn-info">Purge Logs</button>
              </div>
             </form>
         </div>
@@ -53,13 +53,10 @@
 
 @section('scripts')
     <script>
-        $("#datepicker_start" ).datepicker();
-        $("#datepicker_start" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-        $("#datepicker_start" ).datepicker("setDate", '{{ $start_date }}');
-
-        $("#datepicker_end" ).datepicker();
-        $("#datepicker_end" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-        $("#datepicker_end" ).datepicker("setDate", '{{ $end_date }}');
-        $('select').select2();
+        $("#datepicker_start" ).datepicker({ format: 'yyyy-dd-mm' });
+        $("#datepicker_end" ).datepicker({ format: 'yyyy-dd-mm' });
+        $('select').select2({
+            theme: "bootstrap"
+        });
     </script>
  @stop
