@@ -1,5 +1,4 @@
 <?php
-
 namespace Gazatem\Glog\Http\Controllers;
 
 use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
@@ -27,7 +26,7 @@ class GlogController extends BaseController
 
         $level = $request->get('level', null);
         $channel = $request->get('channel', null);
-
+        
         $logs = $this->log_repository
             ->where('level_name', $level)
             ->where('channel', $channel)
@@ -36,7 +35,6 @@ class GlogController extends BaseController
             ->orderBy('created_at', 'desc')
             ->get();
 
-
         $translations = config('glog.translations');
         $levels = config('glog.levels');
         $channels = config('glog.channels');
@@ -44,5 +42,12 @@ class GlogController extends BaseController
         $labels = ['EMERGENCY' => 'danger', 'ALERT' => 'danger', 'CRITICAL' => 'warning', 'ERROR' => 'danger', 'WARNING' => 'warning', 'NOTICE' => 'default', 'INFO' => 'info', 'DEBUG' => 'success'];
 
         return view('glog::index', compact('logs', 'translations', 'levels', 'level', 'channel', 'start_date', 'end_date', 'channels', 'labels'));
+    }
+
+    public function show($id)
+    {
+        $log = $this->log_repository
+            ->find($id);
+        return view('glog::show', compact('log'));
     }
 }

@@ -23,9 +23,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-        $this->model('logid', function ($id) {
-            return "id" . id;
+        $this->model('logid', function($id){
+            if (config('glog.db_connection') == 'mysql') {
+                return (int)$id;
+            }            
+            return $id;
         });
 
         parent::boot();

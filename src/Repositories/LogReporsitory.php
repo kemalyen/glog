@@ -23,7 +23,7 @@ class LogRepository extends BaseRepository
 
     public function orderBy($value = 'created_at', $ascdesc = 'desc')
     {
-        $this->model->orderBy($value, $ascdesc);
+        $this->model = $this->model->orderBy($value, $ascdesc);
         return $this;
     }
 
@@ -32,9 +32,14 @@ class LogRepository extends BaseRepository
         return $this->model->get();
     }
 
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+
     public function whereDate($col = 'created_at', $value)
     {
-        $this->model->where(function ($query) use ($col, $value) {
+        $this->model = $this->model->where(function ($query) use ($col, $value) {
             if ($value != null) {
                 $value = Carbon::createFromFormat('Y-m-d', $value);
                 $query->where($col, '>=', $value);
@@ -45,9 +50,9 @@ class LogRepository extends BaseRepository
 
     public function where($col, $value)
     {
-        $this->model->where(function ($query) use ($col, $value) {
+        $this->model = $this->model->where(function ($query) use ($col, $value) {
             if ($value != null) {
-                $query->where($col, '>=', $value);
+                $query->where($col, '=', $value);
             }
         });
         return $this;

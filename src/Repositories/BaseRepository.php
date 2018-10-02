@@ -20,4 +20,5 @@ abstract class BaseRepository implements RepositoryContract
 
     abstract public function whereDate($col, $value);
     abstract public function where($col, $value);
+    abstract public function find($id);
 }
