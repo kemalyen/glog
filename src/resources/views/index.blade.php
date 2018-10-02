@@ -1,6 +1,6 @@
 @extends('glog::layout.master')
 @section('title')
-    {{ __('glog::trans.dashboard') }}
+    {{ __('glog::translations.dashboard') }}
     @parent
 @stop
 
@@ -38,7 +38,7 @@
         <label for="datepicker_end" class="m-2">End Date:</label>
         <input type="text" id="datepicker_end" name="end_date" class="form-control m-2">
 
-        <button type="submit" class="btn btn-outline-dark m-2">Search</button>
+        <button type="submit" class="btn btn-outline-dark m-2">{{ __('glog::translations.filter') }}</button>
     </form>
 
     <hr/>
