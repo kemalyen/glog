@@ -37,12 +37,12 @@ class LogRepository extends BaseRepository
         return $this->model->find($id);
     }
 
-    public function whereDate($col = 'created_at', $value)
+    public function whereDate($col = 'created_at', $value, $criteria =  '>=')
     {
-        $this->model = $this->model->where(function ($query) use ($col, $value) {
+        $this->model = $this->model->where(function ($query) use ($col, $value, $criteria) {
             if ($value != null) {
                 $value = Carbon::createFromFormat('Y-m-d', $value);
-                $query->where($col, '>=', $value);
+                $query->where($col, $criteria, $value);
             }
         });
         return $this;

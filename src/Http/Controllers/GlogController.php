@@ -30,8 +30,8 @@ class GlogController extends BaseController
         $logs = $this->log_repository
             ->where('level_name', $level)
             ->where('channel', $channel)
-            ->whereDate('created_at', $start_date)
-            ->whereDate('created_at', $end_date)
+            ->whereDate('created_at', $start_date, '>=')
+            ->whereDate('created_at', $end_date, '<=')
             ->orderBy('created_at', 'desc')
             ->get();
 

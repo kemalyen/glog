@@ -62,8 +62,8 @@
 
 @section('scripts')
     <script>
-        $("#datepicker_start").datepicker({format: 'yyyy-dd-mm'});
-        $("#datepicker_end").datepicker({format: 'yyyy-dd-mm'});
+        $("#datepicker_start").datepicker({format: 'yyyy-mm-dd', value: '{{ $start_date }}' });
+        $("#datepicker_end").datepicker({format: 'yyyy-mm-dd', value: '{{ $end_date }}'});
         $('select').select2({
             theme: "bootstrap"
         });
