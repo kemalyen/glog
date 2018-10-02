@@ -11,7 +11,6 @@ use Carbon\Carbon;
 
 class GlogController extends BaseController
 {
-
     private $log_repository;
 
     public function __construct(LogRepository $repositoryContract)

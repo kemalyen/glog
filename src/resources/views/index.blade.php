@@ -44,7 +44,7 @@
     <hr/>
 
     @foreach($logs as $log)
-        <div class="row line" id="{{ $log->id }}">
+        <div class="row line" data-id="{{ $log->id }}">
             <div class="col-md-2">
                 {{ $log->level_name }}<br/>
                 <strong>{{ isset($translations[$log->channel]) ? $translations[$log->channel] : $log->channel }}</strong>

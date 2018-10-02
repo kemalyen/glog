@@ -1,5 +1,5 @@
 <?php
-namespace Gazatem\Glog;
+namespace Gazatem\Glog\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
@@ -14,22 +14,22 @@ class GlogServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/public' => public_path('vendor/gazatem/glog'),
+            __DIR__.'/../public' => public_path('vendor/gazatem/glog'),
         ], 'public');
 
         $this->publishes([
-            __DIR__.'/config/glog.php' => config_path('glog.php')
+            __DIR__.'/../config/glog.php' => config_path('glog.php')
         ], 'glog-config');
 
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'glog');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'glog');
 
         $this->publishes([
-            __DIR__.'/resources/lang/' => resource_path('lang/vendor/glog'),
+            __DIR__.'/../resources/lang/' => resource_path('lang/vendor/glog'),
         ]);
 
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'glog');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadMigrationsFrom(__DIR__.'/../migrations');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'glog');
         $this->bladeDirectives();
     }
 
@@ -48,7 +48,7 @@ class GlogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/glog.php', 'glog');
+        $this->mergeConfigFrom(__DIR__.'/../config/glog.php', 'glog');
         $this->app->singleton('glog', function ($app) {
             return new Glog;
         });
