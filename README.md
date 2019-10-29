@@ -39,7 +39,7 @@ composer require gazatem/glog
   
   
 
-### Laravel 5.7 Installation Guide (includes 5.5 and newer versions)
+### Laravel 5.8 Installation Guide (includes 5.5 and newer versions)
 
   
 
@@ -92,7 +92,7 @@ Open your config/app.php add following line in the providers array
 
 ```php
 
-Gazatem\Glog\GlogServiceProvider::class
+Gazatem\Glog\Providers\GlogServiceProvider::class
 
 ```
 
@@ -152,7 +152,7 @@ Run following command to publish migration and configuration
 
 ```php
 
-php  artisan  vendor:publish  --provider="Gazatem\Glog\GlogServiceProvider"
+php  artisan  vendor:publish  --provider="Gazatem\Glog\Providers\GlogServiceProvider"
 
 ```
 
@@ -214,7 +214,7 @@ return [
 
 'translations'  => [
 
-'test-channe'  =>  'A sample channel'
+'test-channel'  =>  'A sample channel'
 
 ],
 
