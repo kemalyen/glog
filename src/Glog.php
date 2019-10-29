@@ -10,15 +10,22 @@ use Monolog\Handler\Curl\Util;
 class Glog extends AbstractProcessingHandler
 {
     private $httpConnection = null;
-    private $remote_host = 'http://api.loggfy.com';
 
     protected function write(array $record)
     {
-        $hasLevel = in_array($record['level_name'], config('glog.levels'));
-        $hasChannel = in_array($record['message'], config('glog.channels'));
-
-        $notifications = config('glog.notification');
-
+        $hasLevel = false;
+        $hasChannel = false;
+        if (config('glog.levels')){
+            $hasLevel = in_array($record['level_name'], config('glog.levels'));
+        }
+        if (config('glog.channels')) {
+            $hasChannel = in_array($record['message'], config('glog.channels'));
+        }
+        if (config('glog.channels')) {
+            $notifications = config('glog.notification');
+        }else{
+            $notifications = [];
+        }
         $send_notification = 0;
         foreach ($notifications as $key => $value) {
             if ($key === $record['message']) {
@@ -94,10 +101,10 @@ class Glog extends AbstractProcessingHandler
             throw new \LogicException('The curl extension is needed to use http URLs');
         }
 
-        $this->httpConnection = curl_init($this->remote_host);
+        $this->httpConnection = curl_init(config('glog.remote_host'));
 
         if (!$this->httpConnection) {
-            throw new \LogicException('Unable to connect to ' . $this->remote_host);
+            throw new \LogicException('Unable to connect to ' . config('glog.remote_host'));
         }
 
         curl_setopt($this->httpConnection, CURLOPT_POST, "POST");

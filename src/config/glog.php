@@ -10,8 +10,6 @@ return [
 
     'service' => env('GLOG_SERVICE', 'local'),
 
-
-
     // #########################################################
     // L O C A L  S E T T I N G S
     //
@@ -29,24 +27,16 @@ return [
     'mail_subject' => 'Glog notification mail',
     'mail_to' => env('MAIL_FROM'),
     'translations' => [
-        'test-channe' => 'A sample channel'
+        'test-channel' => 'A sample channel'
     ],
 
     // Panel route path
-    'route-prefix' => 'logs-panel',
-
-
-
-    // #########################################################
-    // R E M O T E  S E R V I C E
-    //
-    // For hosted version, enter your api key
-    'api_key'   => '',
-
+    'route-prefix' => 'logs',
+ 
 
     // Common settings!
 
     // All channels must be entered before to send the API.
     'levels' => ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
-    'channels' => ['test-channel'],
+    'channels' => ['test-channel', 'page.home', 'page.shop', 'page.blog', 'auth.login', 'auth.register'],
 ];
