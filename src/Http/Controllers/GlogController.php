@@ -1,62 +1,52 @@
 <?php
-
 namespace Gazatem\Glog\Http\Controllers;
 
 use Gazatem\Glog\Model\MySql\Log as MySqlLogger;
 use Gazatem\Glog\Model\MongoDb\Log as MongoDbLogger;
+use Gazatem\Glog\Repositories\LogRepository;
+use Gazatem\Glog\Repositories\RepositoryContract;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class GlogController extends BaseController
 {
+    private $log_repository;
+
+    public function __construct(LogRepository $repositoryContract)
+    {
+        $this->log_repository = $repositoryContract;
+
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
-        // to enbale mongodb query watch, you should comment out below line!
-        //\DB::connection('mongodb')->enableQueryLog();
         $start_date = $request->get('start_date', null);
         $end_date = $request->get('end_date', null);
 
         $level = $request->get('level', null);
         $channel = $request->get('channel', null);
-
-        if (config('glog.db_connection') == 'mongodb'){
-            $logger = new MongoDbLogger;
-        }else{
-            $logger = new MySqlLogger;
-        }
         
-        $logs = $logger
-                ->where(function ($query) use ($start_date){
-                    if ($start_date != null){
-                        $start_date = Carbon::createFromFormat('Y-m-d', $start_date);
-                        $query->where('created_at', '>=', $start_date);
-                    }
-                })
-                ->where(function ($query) use ($end_date){
-                    if ($end_date != null){
-                        $end_date = Carbon::createFromFormat('Y-m-d', $end_date);
-                        $query->where('created_at', '<=', $end_date);
-                    }
-                })
-                ->where(function ($query) use ($level){
-                    if ($level != null){
-                        $query->where("level_name" ,$level);
-                    }
-                })
-                ->where(function ($query) use ($channel){
-                    if ($channel != null){
-                        $query->where("channel" ,$channel);
-                    }
-                })
-                ->orderBy('created_at', 'desc')->paginate(100);
-
+        $logs = $this->log_repository
+            ->where('level_name', $level)
+            ->where('channel', $channel)
+            ->whereDate('created_at', $start_date, '>=')
+            ->whereDate('created_at', $end_date, '<=')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $translations = config('glog.translations');
         $levels = config('glog.levels');
         $channels = config('glog.channels');
 
-        $labels = ['EMERGENCY' => 'danger' , 'ALERT' => 'danger', 'CRITICAL' => 'warning', 'ERROR' => 'danger', 'WARNING'=> 'warning', 'NOTICE'=> 'default', 'INFO'=> 'info', 'DEBUG'=> 'success'];
+        $labels = ['EMERGENCY' => 'danger', 'ALERT' => 'danger', 'CRITICAL' => 'warning', 'ERROR' => 'danger', 'WARNING' => 'warning', 'NOTICE' => 'default', 'INFO' => 'info', 'DEBUG' => 'success'];
 
         return view('glog::index', compact('logs', 'translations', 'levels', 'level', 'channel', 'start_date', 'end_date', 'channels', 'labels'));
+    }
+
+    public function show($logid)
+    {
+        $log = $this->log_repository->find($logid);
+        return view('glog::show', compact('log'));
     }
 }
