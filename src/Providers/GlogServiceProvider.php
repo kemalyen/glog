@@ -2,6 +2,7 @@
 namespace Gazatem\Glog\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class GlogServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,15 @@ class GlogServiceProvider extends ServiceProvider
             ]);
         }
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang/', 'glog');
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
+
+        Route::group([
+            'prefix' => config("glog.route-prefix"),
+            'middleware' => config("glog.middlewares", 'web'),
+            'namespace' => 'Gazatem\Glog\Http\Controllers',
+        ], function () {
+            $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
+        });
+
         $this->loadMigrationsFrom(__DIR__ . '/../../migrations');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'glog');
         $this->bladeDirectives();
