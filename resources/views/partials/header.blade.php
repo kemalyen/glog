@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-glog">
+    <nav class="navbar navbar-expand-md bg-gradient-primary navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('glog_index') }}">{{ config('glog.appname') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

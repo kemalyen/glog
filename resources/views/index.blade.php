@@ -38,7 +38,7 @@
         <label for="datepicker_end" class="m-2">End Date:</label>
         <input type="text" id="datepicker_end" name="end_date" class="form-control m-2">
 
-        <button type="submit" class="btn btn-outline-dark m-2">{{ __('glog::translations.filter') }}</button>
+        <button type="submit" class="btn btn-sm btn-outline-dark m-2">{{ __('glog::translations.filter') }}</button>
     </form>
 
     <hr/>

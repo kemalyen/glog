@@ -44,10 +44,9 @@ class GlogController extends BaseController
         return view('glog::index', compact('logs', 'translations', 'levels', 'level', 'channel', 'start_date', 'end_date', 'channels', 'labels'));
     }
 
-    public function show($id)
+    public function show($logid)
     {
-        $log = $this->log_repository
-            ->find($id);
+        $log = $this->log_repository->find($logid);
         return view('glog::show', compact('log'));
     }
 }
